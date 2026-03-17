@@ -5,7 +5,7 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <section className="flex items-center justify-between gap-4 py-10">
+    <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-4 py-10 ">
       {/* text Content */}
       <div className="flex-1 space-y-3">
         <h1
