@@ -1,9 +1,13 @@
 import React from "react";
+import Logo from "../shared/Logo";
 
 const Footer = () => {
   return (
-    <>
-      <footer className="footer sm:footer-horizontal bg-secondary text-base-content p-10">
+    <footer className="bg-neutral">
+      <div className="footer sm:footer-horizontal  text-white py-10 w-11/12 mx-auto">
+      <nav>
+        <Logo/>
+      </nav>
         <nav>
           <h6 className="footer-title">Services</h6>
           <a className="link link-hover">Branding</a>
@@ -56,8 +60,8 @@ const Footer = () => {
             </a>
           </div>
         </nav>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 };
 

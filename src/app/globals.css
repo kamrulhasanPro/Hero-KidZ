@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui"{
-  themes: light --default
+  themes: light --default;
 };
 
 @plugin "daisyui/theme" {
-  name: "dark";
+  name: "light";
   default: true;
   /* Brand */
   --color-primary: oklch(65% 0.23 35);

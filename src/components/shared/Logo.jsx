@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Logo = () => {
+const Logo = ({className}) => {
   return (
-    <Link href={"/"} className="flex items-center justify-center gap-2">
+    <Link href={"/"} className={`flex items-center justify-center gap-2 ${className}`}>
       <Image
         src={"/assets/logo.png"}
         alt="website Logo"
@@ -12,7 +12,9 @@ const Logo = () => {
         width={60}
       />
 
-      <span className="font-semibold text-neutral">HeroKidZ</span>
+      <p className="font-semibold  text-xl">
+        Hero <span className="text-primary">Kidz</span>
+      </p>
     </Link>
   );
 };
