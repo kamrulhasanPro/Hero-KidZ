@@ -1,5 +1,9 @@
 import sql from "mysql2/promise";
 
+/** 
+- This db connect
+-  with localhost or production database
+*/
 export const db = sql.createPool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,

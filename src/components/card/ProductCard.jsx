@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 
-
-
 // ------------------ Product Card ------------------
 export default function ProductCard({ product }) {
-  const discountedPrice = product.price - (product.price * product.discount) / 100;
+  const discountedPrice =
+    product.price - (product.price * product.discount) / 100;
 
   return (
     <div className="card w-80 bg-base-100 shadow-xl hover:shadow-2xl transition">
@@ -29,13 +28,11 @@ export default function ProductCard({ product }) {
       </figure>
 
       <div className="card-body">
-        <h2 className="card-title text-base font-bold">
-          {product.title}
-        </h2>
+        <h2 className="card-title text-base font-bold">{product.title}</h2>
 
-        <p className="text-sm text-gray-500 line-clamp-2">
+        {/* <p className="text-sm text-gray-500 line-clamp-2">
           {product.description}
-        </p>
+        </p> */}
 
         {/* Rating */}
         <div className="flex items-center gap-1 text-yellow-500">
@@ -59,7 +56,10 @@ export default function ProductCard({ product }) {
 
         {/* Button */}
         <div className="card-actions ">
-          <Link href={''} className="btn btn-primary btn-sm flex-1">
+          <Link
+            href={`/products/${product.id}`}
+            className="btn btn-primary btn-sm flex-1"
+          >
             View Details
           </Link>
           <button className="btn btn-primary btn-outline btn-sm flex-1">

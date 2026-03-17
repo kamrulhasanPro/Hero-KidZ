@@ -1,9 +1,12 @@
 import MyTitle from "@/components/shared/MyTitle";
 import React from "react";
-import products from "@/data/toys.json";
+// import products from "@/data/toys.json";
 import ProductCard from "@/components/card/ProductCard";
+import { getProducts } from "@/actions/products.action";
 
-const Products = () => {
+const OurProducts = async () => {
+  const products = await getProducts();
+
   return (
     <section className="py-10">
       {/* Title */}
@@ -14,11 +17,11 @@ const Products = () => {
       {/* Products */}
       <div className="grid grid-cols-3 gap-4">
         {products.map((product, i) => (
-          <ProductCard key={i} product={product}/>
+          <ProductCard key={i} product={product} />
         ))}
       </div>
     </section>
   );
 };
 
-export default Products;
+export default OurProducts;
