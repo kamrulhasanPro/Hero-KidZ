@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import MyTitle from "@/components/shared/MyTitle";
 import React from "react";
 // import products from "@/data/toys.json";

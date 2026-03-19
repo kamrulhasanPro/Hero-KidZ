@@ -1,8 +1,37 @@
+export const dynamic = "force-dynamic";
 import { getProductById } from "@/actions/products.action";
 import Image from "next/image";
 
+export async function generateMetadata({ params, searchParams }, parent) {
+  // read route params
+  const { id } = await params;
+
+  // fetch data
+  const { product } = await getProductById(id);
+
+  return {
+    title: product.title,
+    description: product.description?.slice(0,150),
+    openGraph: {
+      title: product.title,
+      description: product.description?.slice(0, 150),
+      url: `https://hero-kidz-rose-sigma.vercel.app/products/${id}`,
+      siteName: "HeroKidz",
+      images: [
+        {
+          url: product.image,
+          width: 800,
+          height: 600,
+          alt: product.title,
+        },
+      ],
+      type: "website",
+    },
+  };
+}
+
 export default async function ProductDetails({ params }) {
-  const { id } =await params;
+  const { id } = await params;
   const { product, qna, info } = await getProductById(id);
   console.log({ product, qna, info });
   const discountedPrice =

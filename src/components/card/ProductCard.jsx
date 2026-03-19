@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
           alt={product.title}
           width={400}
           height={300}
-          className="object-cover w-full h-48"
+          className="object-cover w-full max-h-48"
         />
 
         {product.discount > 0 && (

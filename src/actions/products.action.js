@@ -18,7 +18,9 @@ export const getProducts = async () => {
 
     return products;
   } catch (error) {
-    throw new Error("Get Products Problem");
+    // throw new Error("Get Products Problem");
+    console.error("Get Products Error:", error);
+    return [];
   }
 };
 
@@ -28,23 +30,31 @@ export const getProducts = async () => {
 */
 export const getProductById = async (id) => {
   try {
-
     // product
-    const [product] = await db.query(`SELECT * FROM products 
+    const [product] = await db.query(
+      `SELECT * FROM products 
     WHERE id = ?
-    `, id);
+    `,
+      id,
+    );
 
     // qna
-    const [qna] =  await db.query(`SELECT * FROM product_qna 
+    const [qna] = await db.query(
+      `SELECT * FROM product_qna 
     WHERE product_id = ?
-    `, id)
+    `,
+      id,
+    );
 
     // info
-    const [info] =  await db.query(`SELECT * FROM product_info 
+    const [info] = await db.query(
+      `SELECT * FROM product_info 
     WHERE product_id = ?
-    `, id)
-    
-    return {product:product[0], qna, info};
+    `,
+      id,
+    );
+
+    return { product: product[0], qna, info };
   } catch (error) {
     throw new Error("Get Product by id Problem");
   }
@@ -65,6 +75,6 @@ export const insertProducts = async (product) => {
     console.log({ rows });
     return rows;
   } catch (error) {
-    throw new Error("Get Products Problem");
+    throw new Error("Insert Products Problem");
   }
 };

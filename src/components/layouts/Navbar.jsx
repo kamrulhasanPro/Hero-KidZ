@@ -1,6 +1,7 @@
 import React from "react";
 import NavLink from "../shared/NavLink";
 import Logo from "../shared/Logo";
+import { LuShoppingCart } from "react-icons/lu";
 
 const Navbar = () => {
   const navList = (
@@ -9,7 +10,9 @@ const Navbar = () => {
         <NavLink href={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink end={true} href={"/products"}>Products</NavLink>
+        <NavLink end={true} href={"/products"}>
+          Products
+        </NavLink>
       </li>
       <li>
         <NavLink href={"/about"}>About</NavLink>
@@ -53,7 +56,7 @@ const Navbar = () => {
           </div>
 
           {/* Logo */}
-          <Logo/>
+          <Logo />
         </div>
 
         {/* desktop */}
@@ -62,6 +65,9 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
+          <div className="bg-primary/20 p-2 rounded-full hover:bg-primary/50 transition-all mr-3 cursor-pointer">
+            <LuShoppingCart />
+          </div>
           <button className="btn btn-primary btn-outline">Login</button>
         </div>
       </div>
