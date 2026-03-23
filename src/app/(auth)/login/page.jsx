@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -29,9 +30,12 @@ export default function LoginPage() {
 
     if (result?.ok) {
       console.log("✅ Login success");
+      toast.success('Successfully Login!')
 
       router.push(result.url || "/");
+
     } else {
+      toast.error("Failed Login!");
       console.log(result?.error);
     }
   };

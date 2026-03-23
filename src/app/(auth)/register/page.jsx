@@ -3,6 +3,7 @@
 import { createNewUser } from "@/actions/auth.action";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 export default function RegisterPage() {
@@ -29,7 +30,10 @@ export default function RegisterPage() {
     console.log(result);
 
     if (result.success) {
+      toast.success("Successfully created account!");
       router.push("/login");
+    } else {
+      toast.error(result.message);
     }
   };
 

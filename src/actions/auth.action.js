@@ -1,5 +1,5 @@
 "use server";
-
+import bcrypt from "bcrypt";
 import { db } from "@/lib/db";
 
 /**
@@ -39,7 +39,7 @@ export const createNewUser = async (user) => {
     }
   } catch (error) {
     console.error(error);
-    return { success: false };
+    return { success: false, message: "Not get fetch" };
   }
 };
 

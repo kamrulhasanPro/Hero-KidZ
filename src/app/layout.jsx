@@ -4,6 +4,7 @@ import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import localFont from "next/font/local";
 import NextAuthProvider from "@/contexts/NextAuthProvider";
+import { Toaster } from "react-hot-toast";
 
 export const fontBangla = localFont({
   src: "./../fonts/mayaboti-normal.ttf",
@@ -93,21 +94,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <NextAuthProvider>
-      <body className={`${poppins.className} antialiased`}>
-        <header>
-          {/* Navbar */}
-          <Navbar />
-        </header>
+        <body className={`${poppins.className} antialiased`}>
+        <Toaster />
+          <header>
+            {/* Navbar */}
+            <Navbar />
+          </header>
 
-        {/* main */}
-        <main className="min-h-[calc(100vh-81px-275px)] w-11/12 max-w-7xl mx-auto">
-          {children}
-        </main>
+          {/* main */}
+          <main className="min-h-[calc(100vh-81px-275px)] w-11/12 max-w-7xl mx-auto">
+            {children}
+          </main>
 
-        {/* Footer */}
-        <Footer />
-      </body>
-    </NextAuthProvider>
+          {/* Footer */}
+          <Footer />
+        </body>
+      </NextAuthProvider>
     </html>
   );
 }
