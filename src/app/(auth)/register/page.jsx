@@ -1,10 +1,13 @@
 "use client";
 
-import { createNewUser } from "@/actions/products.action";
+import { createNewUser } from "@/actions/auth.action";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   // submit function
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +27,10 @@ export default function RegisterPage() {
     console.log({ name, email, password, confirmPassword });
     const result = await createNewUser(user);
     console.log(result);
+
+    if (result.success) {
+      router.push("/login");
+    }
   };
 
   return (

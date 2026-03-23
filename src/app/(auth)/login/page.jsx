@@ -2,10 +2,14 @@
 
 import Link from "next/link";
 import { FaEnvelope, FaLock } from "react-icons/fa";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   // submit function
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
 
@@ -13,6 +17,22 @@ export default function LoginPage() {
     const password = form.password.value;
 
     console.log({ email, password });
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      callbackUrl: "/",
+    });
+
+    console.log(result);
+
+    if (result?.ok) {
+      console.log("✅ Login success");
+
+      router.push(result.url || "/");
+    } else {
+      console.log(result?.error);
+    }
   };
 
   return (

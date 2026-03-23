@@ -3,6 +3,7 @@ import NavLink from "../shared/NavLink";
 import Logo from "../shared/Logo";
 import { LuShoppingCart } from "react-icons/lu";
 import Link from "next/link";
+import AuthButton from "../button/AuthButton";
 
 const Navbar = () => {
   const navList = (
@@ -69,7 +70,8 @@ const Navbar = () => {
           <div className="bg-primary/20 p-2 rounded-full hover:bg-primary/50 transition-all mr-3 cursor-pointer">
             <LuShoppingCart />
           </div>
-          <Link href={"/login"} className="btn btn-primary btn-outline">Login</Link>
+          <AuthButton />
+          {/* <Link href={"/login"} className="btn btn-primary btn-outline">Login</Link> */}
         </div>
       </div>
     </nav>

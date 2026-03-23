@@ -45,6 +45,8 @@ CREATE TABLE IF NOT EXISTS users (
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
+SHOW TABLES;
+
 -- INSERT INTO products 
 -- (title, bangla_title, image, price, discount, description, reviews, sold, ratings)
 -- VALUES
