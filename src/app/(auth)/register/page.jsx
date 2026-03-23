@@ -2,12 +2,14 @@
 
 import { createNewUser } from "@/actions/auth.action";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl") || "/";
 
   // submit function
   const handleOnSubmit = async (e) => {
@@ -31,7 +33,7 @@ export default function RegisterPage() {
 
     if (result.success) {
       toast.success("Successfully created account!");
-      router.push("/login");
+      router.push(`/login?callbackUrl=${callbackUrl}`);
     } else {
       toast.error(result.message);
     }
@@ -94,7 +96,10 @@ export default function RegisterPage() {
 
           <p className="text-center text-sm mt-4">
             Already have an account?{" "}
-            <Link href="/login" className="text-primary font-medium">
+            <Link
+              href={`/login?callbackUrl=${callbackUrl}`}
+              className="text-primary font-medium"
+            >
               Login
             </Link>
           </p>

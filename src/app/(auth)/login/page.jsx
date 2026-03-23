@@ -5,10 +5,12 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import SocialLoginBtn from "../../../components/button/SocialLoginBtn";
 
 export default function LoginPage() {
   const router = useRouter();
-  const search = useSearchParams();
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl") || "/"
 
   // submit function
   const handleOnSubmit = async (e) => {
@@ -23,7 +25,7 @@ export default function LoginPage() {
       email,
       password,
       redirect: false,
-      callbackUrl: search.get("callbackUrl") || "/",
+      callbackUrl,
     });
 
     console.log(result);
@@ -74,9 +76,11 @@ export default function LoginPage() {
             <button className="btn btn-primary w-full">Login</button>
           </form>
 
+          <SocialLoginBtn/>
+
           <p className="text-center text-sm mt-4">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-primary font-medium">
+            <Link href={`/register?callbackUrl=${callbackUrl}`} className="text-primary font-medium">
               Register
             </Link>
           </p>

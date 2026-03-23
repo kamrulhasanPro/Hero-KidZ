@@ -1,5 +1,7 @@
 import { getUserByEmail } from "@/actions/auth.action";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+
 import bcrypt from "bcrypt";
 
 export const authOptions = {
@@ -49,7 +51,7 @@ export const authOptions = {
           name: user.name,
           email: user.email,
         });
-        
+
         return {
           id: String(user.user_id),
           name: user.name,
@@ -57,19 +59,23 @@ export const authOptions = {
         };
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
-//   callbacks: {
-//     async signIn({ user, account, profile, email, credentials }) {
-//       return true;
-//     },
-//     async redirect({ url, baseUrl }) {
-//       // return baseUrl
-//     },
-//     async session({ session, token, user }) {
-//       return session;
-//     },
-//     async jwt({ token, user, account, profile, isNewUser }) {
-//       return token;
-//     },
-//   },
+    // callbacks: {
+    //   async signIn({ user, account, profile, email, credentials }) {
+    //     return true;
+    //   },
+    //   async redirect({ url, baseUrl }) {
+    //     // return baseUrl
+    //   },
+    //   async session({ session, token, user }) {
+    //     return session;
+    //   },
+    //   async jwt({ token, user, account, profile, isNewUser }) {
+    //     return token;
+    //   },
+    // },
 };
