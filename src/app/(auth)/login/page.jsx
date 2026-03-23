@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
+  const search = useSearchParams();
 
   // submit function
   const handleOnSubmit = async (e) => {
@@ -21,7 +22,7 @@ export default function LoginPage() {
       email,
       password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: search.get("callbackUrl") || "/",
     });
 
     console.log(result);

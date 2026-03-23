@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import { getProductById } from "@/actions/products.action";
+import AddToCart from "@/components/button/AddToCart";
 import Image from "next/image";
 
 export async function generateMetadata({ params, searchParams }, parent) {
@@ -11,7 +12,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
     title: product.title,
-    description: product.description?.slice(0,150),
+    description: product.description?.slice(0, 150),
     openGraph: {
       title: product.title,
       description: product.description?.slice(0, 150),
@@ -80,7 +81,7 @@ export default async function ProductDetails({ params }) {
         </div>
 
         {/* Button */}
-        <button className="btn btn-primary w-full">Add to Cart</button>
+        <AddToCart />
       </div>
 
       {/* Description */}
