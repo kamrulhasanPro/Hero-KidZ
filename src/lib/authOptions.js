@@ -1,4 +1,4 @@
-import { getUserByEmail } from "@/actions/auth.action";
+import { createNewUserForGoogle, getUserByEmail } from "@/actions/auth.action";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -64,18 +64,30 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-    // callbacks: {
-    //   async signIn({ user, account, profile, email, credentials }) {
-    //     return true;
-    //   },
-    //   async redirect({ url, baseUrl }) {
-    //     // return baseUrl
-    //   },
-    //   async session({ session, token, user }) {
-    //     return session;
-    //   },
-    //   async jwt({ token, user, account, profile, isNewUser }) {
-    //     return token;
-    //   },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+
+      const newUser = {
+        name: user?.name,
+        email: user?.email,
+        provider: account?.provider,
+      };
+
+      const result = await createNewUserForGoogle(newUser);
+      if (!result.success) {
+        return false;
+      }
+      console.log(result);
+      return true;
+    },
+    // async redirect({ url, baseUrl }) {
+    //   // return baseUrl
     // },
+    // async session({ session, token, user }) {
+    //   return session;
+    // },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token;
+    // },
+  },
 };

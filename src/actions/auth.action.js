@@ -44,6 +44,44 @@ export const createNewUser = async (user) => {
 };
 
 /**
+- CREATE USER FOR GOOGLE
+- auth.action.js
+*/
+export const createNewUserForGoogle = async (user) => {
+  const { name, email, provider } = user;
+
+  try {
+    // check validation
+    if (!user) return null;
+
+    // check user in db
+    const checkSQL = `SELECT * FROM users WHERE email = ? AND provider = ?`;
+    const [checkUser] = await db.query(checkSQL, [email, provider]);
+
+    if (checkUser.length !== 0) {
+      return {
+        message: "Already user created a account with this email",
+        success: true,
+      };
+    }
+
+    // new user
+    const newUser = [name, email, provider];
+
+    // insert user
+    const insertSQL = `INSERT INTO users(name, email, provider) VALUES(?, ?, ?)`;
+    const [rows] = await db.query(insertSQL, newUser);
+
+    if (rows.insertId) {
+      return { success: true };
+    }
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "Not get fetch" };
+  }
+};
+
+/**
 - LOGIN USER
 - auth.action.js
 */
