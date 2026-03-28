@@ -58,7 +58,7 @@ export const createNewUserForGoogle = async (user) => {
     const checkSQL = `SELECT * FROM users WHERE email = ? AND provider = ?`;
     const [checkUser] = await db.query(checkSQL, [email, provider]);
 
-    console.log({ checkUser });
+    // console.log({ checkUser });
 
     if (checkUser.length !== 0) {
       return {
@@ -100,7 +100,7 @@ export const getUserByEmail = async (email) => {
     if (user.length === 0) {
       return null;
     }
-    console.log(user);
+    // console.log(user);
     return user[0];
   } catch (error) {
     // throw new Error("Get Products Problem");

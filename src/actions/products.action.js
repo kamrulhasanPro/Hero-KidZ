@@ -1,7 +1,7 @@
 "use server";
 import { db } from "@/lib/db";
 
-/**
+/** 
 - ALL PRODUCT GET
 - products.action.js
 */
@@ -71,7 +71,7 @@ export const insertProducts = async (product) => {
     const productValues = Object.values(product);
 
     const [rows] = await db.query(sql, productValues);
-    console.log({ rows });
+    // console.log({ rows });
     return rows;
   } catch (error) {
     throw new Error("Insert Products Problem");
