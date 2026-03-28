@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS hero_kidz_db;
 USE hero_kidz_db;
 
+-- * Make a products table. There mainly focus primary key, auto increment, default value, dateStamp or timeStamp;
 CREATE TABLE IF NOT EXISTS products(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS products(
 );
 
 
+-- * Main focus make this table for foreign key, text datatype, on delete/update cascade.
 CREATE TABLE IF NOT EXISTS product_qna (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT,
@@ -27,6 +29,7 @@ CREATE TABLE IF NOT EXISTS product_qna (
 );
 
 
+-- * product_info table. It's a relational table with products table.
 CREATE TABLE IF NOT EXISTS product_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT,
@@ -36,6 +39,7 @@ CREATE TABLE IF NOT EXISTS product_info (
     ON UPDATE CASCADE
 );
 
+-- * User Table
 CREATE TABLE IF NOT EXISTS users (
     user_id INT PRIMARY KEY AUTO_INCREMENT, 
     name VARCHAR(50) NOT NULL,
@@ -45,10 +49,32 @@ CREATE TABLE IF NOT EXISTS users (
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
-ALTER TABLE users
-CHANGE COLUMN name name VARCHAR(50) NOT NULL;
+-- * Cart Items table. focus in unique key for easily filtering
+CREATE TABLE IF NOT EXISTS cart_items(
+    -- main column
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+    UNIQUE KEY uq_cart (user_id, product_id),
+
+    FOREIGN KEY (product_id) REFERENCES products(id) 
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id) 
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+-- describe table
+DESC cart_items;
+
+-- show all tables
 SHOW TABLES;
+
 
 -- INSERT INTO products 
 -- (title, bangla_title, image, price, discount, description, reviews, sold, ratings)
