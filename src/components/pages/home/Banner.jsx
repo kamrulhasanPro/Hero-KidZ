@@ -25,6 +25,7 @@ const Banner = () => {
       <figure className="flex-1">
         <Image
           src={"/assets/hero.png"}
+          loading="lazy"
           alt="Hero Image"
           width={500}
           height={600}

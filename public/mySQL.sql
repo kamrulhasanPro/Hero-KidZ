@@ -38,12 +38,15 @@ CREATE TABLE IF NOT EXISTS product_info (
 
 CREATE TABLE IF NOT EXISTS users (
     user_id INT PRIMARY KEY AUTO_INCREMENT, 
-    name VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL, 
+    password_hash VARCHAR(255), 
     provider VARCHAR(50),
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
+
+ALTER TABLE users
+CHANGE COLUMN name name VARCHAR(50) NOT NULL;
 
 SHOW TABLES;
 
@@ -128,4 +131,29 @@ SHOW TABLES;
 -- -- Product 8
 -- (8,'engineering'),(8,'problem solving'),(8,'safe'),(8,'STEM');
 
-select * from product_info;
+SELECT * FROM users;
+
+-- describe table
+DESC users;
+SHOW CREATE TABLE users;
+
+-- see right now database
+SELECT DATABASE();
+
+-- index key check
+SHOW INDEX FROM users;
+
+-- CREATE INDEX
+ALTER TABLE users
+ADD UNIQUE INDEX (name);
+
+-- create index another way
+CREATE INDEX idx_name
+ON users (name);
+
+-- DELETE INDEX
+ALTER TABLE users
+DROP INDEX idx_name;
+
+-- ANOTHER WAY FOR DELETE INDEX
+DROP INDEX idx_name ON users;

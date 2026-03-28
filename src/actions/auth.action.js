@@ -19,7 +19,7 @@ export const createNewUser = async (user) => {
 
     if (checkUser.length !== 0) {
       return {
-        message: "Already user created a account with this email",
+        message: `Already this user created a account with  ${checkUser[0]?.provider}. Please login with ${checkUser[0]?.provider}`,
         success: false,
       };
     }
@@ -44,7 +44,7 @@ export const createNewUser = async (user) => {
 };
 
 /**
-- CREATE USER FOR GOOGLE
+- CREATE USER FOR GOOGLE OR OTHER SOCIAL OAUTH
 - auth.action.js
 */
 export const createNewUserForGoogle = async (user) => {
@@ -58,9 +58,11 @@ export const createNewUserForGoogle = async (user) => {
     const checkSQL = `SELECT * FROM users WHERE email = ? AND provider = ?`;
     const [checkUser] = await db.query(checkSQL, [email, provider]);
 
+    console.log({ checkUser });
+
     if (checkUser.length !== 0) {
       return {
-        message: "Already user created a account with this email",
+        message: `Already this user created a account with  ${checkUser[0]?.provider}. Please login with ${checkUser[0]?.provider}`,
         success: true,
       };
     }

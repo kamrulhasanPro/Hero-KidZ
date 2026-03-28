@@ -5,6 +5,7 @@ import React from "react";
 
 const AuthButton = () => {
   const { data: session, status } = useSession();
+  console.log(session);
   return (
     <div>
       {status === "authenticated" ? (

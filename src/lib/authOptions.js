@@ -22,8 +22,6 @@ export const authOptions = {
       },
 
       async authorize(credentials, req) {
-        console.log({ credentials, way: "cre" });
-
         // validation
         const { email, password } = credentials;
 
@@ -40,22 +38,16 @@ export const authOptions = {
         // compare hash password
         const comparePass = await bcrypt.compare(password, user?.password_hash);
 
-        console.log({ comparePass });
-
         // if password invalid
         if (!comparePass) {
           return null;
         }
-        console.log({
-          id: user.user_id,
-          name: user.name,
-          email: user.email,
-        });
 
         return {
           id: String(user.user_id),
           name: user.name,
           email: user.email,
+          role: "customer",
         };
       },
     }),
@@ -64,30 +56,52 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      try {
+        if (account.provider === "google") {
+          const newUser = {
+            name: user?.name,
+            email: user?.email,
+            provider: account?.provider,
+          };
 
-      const newUser = {
-        name: user?.name,
-        email: user?.email,
-        provider: account?.provider,
-      };
+          // check this google email user. if not exist then add in db.
+          const result = await createNewUserForGoogle(newUser);
 
-      const result = await createNewUserForGoogle(newUser);
-      if (!result.success) {
+          console.log("Google save result:", result);
+        }
+
+        return true;
+      } catch (error) {
+        console.error("SIGNIN ERROR:", error);
         return false;
       }
-      console.log(result);
-      return true;
     },
     // async redirect({ url, baseUrl }) {
-    //   // return baseUrl
+    //   console.log({url, baseUrl});
+    //   return baseUrl
     // },
-    // async session({ session, token, user }) {
-    //   return session;
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token;
-    // },
+
+    async session({ session, token, user }) {
+      // get role from token
+      if (token) {
+        session.role = token.user_role;
+      }
+      return session;
+    },
+
+    async jwt({ token, user, account, profile, isNewUser }) {
+      // if user exist then make jwt token
+      if (user) {
+        token.user_name = user?.name;
+        token.user_email = user?.email;
+        token.user_role = user?.role || "customer";
+        token.auth_provider = account?.provider;
+      }
+
+      return token;
+    },
   },
 };
